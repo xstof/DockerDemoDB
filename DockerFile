@@ -1,0 +1,19 @@
+FROM mcr.microsoft.com/mssql/server:2017-latest
+
+WORKDIR /sampledata/
+RUN apt-get update && apt-get install -y curl wget && curl -L -o wwi.bak https://github.com/Microsoft/sql-server-samples/releases/download/wide-world-importers-v1.0/WideWorldImporters-Full.bak
+
+RUN mkdir /var/opt/mssql/
+RUN mkdir /var/opt/mssql/backup
+RUN cp wwi.bak /var/opt/mssql/backup
+
+WORKDIR /scripts/
+COPY ./import-demodata.sh .
+COPY ./entrypoint.sh .
+RUN chmod +x /scripts/import-demodata.sh
+RUN chmod +x /scripts/entrypoint.sh
+
+WORKDIR /opt/mssql-tools/bin/
+CMD /bin/bash /scripts/entrypoint.sh
+
+# docs: https://docs.microsoft.com/en-us/sql/linux/tutorial-restore-backup-in-sql-server-container?view=sql-server-2017

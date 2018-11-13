@@ -1,0 +1,1 @@
+docker run -ti --rm -e ACCEPT_EULA=Y -e SA_PASSWORD=P@55w0rd2018 -p 1433:1433 --name ccsql minidb

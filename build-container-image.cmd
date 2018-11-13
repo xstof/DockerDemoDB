@@ -1,0 +1,1 @@
+ docker build --force-rm -t minidb:latest .
