@@ -1,1 +1,1 @@
- docker build --force-rm -t minidb:latest .
+ docker build --force-rm -t xstof/minidb:latest .
